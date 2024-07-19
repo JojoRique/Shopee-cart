@@ -10,12 +10,19 @@ async function additem(userCart, item){
 
 //calcular o total
 async function calculateTotal(userCart){
-    return userCart.reduce((total, item)=> total + item.subitem(), 0);
+    console.log("\n Shopee Cart TOTAL IS: ")
+
+    const result = userCart.reduce((total, item)=> total + item.subtotal(),0);
+    console.log(`🎁Total: ${result}`)
 }
 
 //deletar item do carinho
 async function deleteItem(userCart,Name){
+    const index = userCart.findIndex((item)=> item.name === Name);
 
+    if(index !== -1){
+        userCart.splice(index, 1);
+    }
 }
 
 
@@ -24,9 +31,17 @@ async function removeItem(userCart, index){
 
 }
 
+async function displaycart(userCart){
+console.log("Shopee cart list:")
+userCart.forEach((item, index) =>{
+    console.log(`${index + 1}. ${item.name} - R$ ${item.price} | ${item.quantity} | Subtotal =  ${item.subtotal()}`);
+})
+}
+
 export {
     additem,
     calculateTotal,
     deleteItem,
-    removeItem
+    removeItem,
+    displaycart
 }
